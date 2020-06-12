@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Title</title>
+</head>
+
+    <style>
+
+        .fieldError{
+            border-color: #bd2130;
+        }
+    </style>
+<body>
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"></div>
+
+    <form role="form" action="/members/news"
+        th:object="${memberForm}" method="post">
+        <div class="form-group">
+            <label th:for="name">이 름</label>
+            <input type="text" th:field="*{name}"
+                class="form-control" placeholder="이름을 입력하세요"
+                th:class="${#fields.hasErrors('name')}?'form-control fieldError':'form-control'"
+            >
+            <!--라벨이랑 인풋이랑 이름으로 묶임 *안의 이름은 멤버폼 안에있는 멤버변수에 할당됨.-->
+            <!--네임이라는 필드에 에러가있다면 ? -->
+
+            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Incorrect data</p>
+
+        </div>
+
+        <div class="form-group">
+            <label th:for="city">도 시</label>
+            <input type="text" th:field="*{city}"
+                   class="form-control" placeholder="도시를 입력하세요"><!--라벨이랑 인풋이랑 이름으로 묶임 *안의 이름은 멤버폼 안에있는 멤버변수에 할당됨.-->
+        </div>
+
+        <div class="form-group">
+            <label th:for="street">거 리</label>
+            <input type="text" th:field="*{street}"
+                   class="form-control" placeholder="거리를 입력하세요"><!--라벨이랑 인풋이랑 이름으로 묶임 *안의 이름은 멤버폼 안에있는 멤버변수에 할당됨.-->
+        </div>
+
+        <div class="form-group">
+            <label th:for="zipcode">우편번호</label>
+            <input type="text" th:field="*{zipcode}"
+                   class="form-control" placeholder="우편번호를 입력하세요"><!--라벨이랑 인풋이랑 이름으로 묶임 *안의 이름은 멤버폼 안에있는 멤버변수에 할당됨.-->
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+    </form>
+
+    <div th:replace="fragments/footer"></div>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"></div>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>회 원 명</th>
+            <th>상 품 명</th>
+            <th>주문 가격</th>
+            <th>주문 수량</th>
+            <th>주문 상태</th> <!--주문됐냐 캔슬됐냐-->
+            <th>주문 일시</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order :${list}">
+            <td th:text="${order.getId()}"></td>
+            <td th:text="${order.getMember().getName()}"></td>
+            <!--order에 가면 member객체있음 . member객체안에는 name이있음-->
+            <td th:text="${order.getOrderItems()[0].getItem().getName()}"></td>
+            <!--orderItems는 배열형이라서 인덱스붙여줘야함.
+                주문한 아이템은 지금 하나밖에없기때문에 0번째 인덱스로 받아와야함-->
+            <td th:text="${order.getOrderItems()[0].getOrderPrice()}"></td>
+            <td th:text="${order.getOrderItems()[0].getCount()}"></td>
+            <td th:text="${order.getStatus()}"></td>
+            <td th:text="${order.getOrderDate()}"></td>
+
+            <td>
+                <a th:if="${order.getStatus().name() == 'ORDER'}" href="#"
+                   th:href="'javascript:cancel('+${order.getId()}+')'"
+                   class="btn btn-danger">CANCEL</a>
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+    <div th:replace="fragments/footer"></div>
+</div>
+
+
+</body>
+
+
+<script>
+
+    function cancel(id) {
+        var form = document.createElement("form");
+
+        form.setAttribute("method","POST")
+        form.setAttribute("action","/orders/"+id+"/cancel");
+
+        document.body.appendChild(form);
+        form.submit();
+        /*form 내용이 컨트롤러로 넘어간다*/
+    }
+
+</script>
+
+
+
+
+</html>

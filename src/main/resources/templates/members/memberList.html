@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <!--
+        th:replace 속성은 간단하게 설명해서 해당 속성이 선언된
+        html 태그를 replace에 정의된 다른 html 파일로 치환한다는 뜻.
+        즉, jsp의 include와 비슷한 동작을 말함.
+
+        th:replace 속성의 경로는 Spring Boot의 기본 경로인 templates 폴더 하위에 정의한 경로를 작성 후
+        :: 뒤에는 지정할 파일의 이름을 적어둠.
+    -->
+
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"></div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>이  름</th>
+                <th>도  시</th>
+                <th>주  소</th>
+                <th>우편번호</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="member:${list}">
+                <td th:text="${member.getId()}"></td>
+                <td th:text="${member.getName()}"></td>
+                <td th:text="${member.getAddress().getCity()}"></td>
+                <td th:text="${member.getAddress().getStreet()}"></td>
+                <td th:text="${member.getAddress().getZipcode()}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <div th:replace="fragments/footer"></div>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"></div>
+
+    <form role="form" th:action="@{/order}" method="post">
+        <div class="form-group">
+            <label for="member"> 주문회원 </label>
+            <select name="memberId" id="member" class="form-control">
+              <!--select id="member" 하면 라벨태그 for="member" 같은이름으로~~-->
+                <option value=""> 회원선택 </option>
+                <option th:each="members : ${memberList}" th:value="${members.getId()}" th:text="${members.getName()}"> 회원선택 </option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="item"> 상 품 명 </label>
+            <select name="itemId" id="item" class="form-control">
+                <option value=""> 상품선택 </option>
+                <option th:each="items : ${itemList}" th:value="${items.getId()}" th:text="${items.getName()}"> 상품선택 </option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="count"> 주문수량 </label>
+            <input type="number" name="count" id="count" class="form-control" placeholder="주문 수량을 입력하세요"/>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+
+    </form>
+
+    <div th:replace="fragments/footer"></div>
+</div>
+
+
+</body>
+</html>

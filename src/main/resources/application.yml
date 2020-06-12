@@ -1,0 +1,33 @@
+#DB 설정
+
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:tcp://localhost/~/jpashop
+    username: sa
+    password:
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        # JPA에서 발생하는 쿼리문을 콘솔창에 출력해줌.
+        # show-sql: true
+        # SQL문장이 한줄에 나오는 것이 아니라 예쁘게나옴.
+        format_sql: true
+
+  thymeleaf:
+    cache: false
+    #서버 재시작 안하고 쓸수있음.
+
+logging.level:
+  #JPA에서 발생하는 쿼리문을 로그파일로 보여주는 옵션
+  org.hibernate.SQL: debug
+
+  #SQL문에서 바인딩되는 파라미터 값까지 보여주는 옵션
+  org.hibernate.type: trace
+
+
+server:
+  port: 8585

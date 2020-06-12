@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Title</title>
+</head>
+
+
+<body>
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"></div>
+
+    <form role="form" th:action="@{/items/news}"
+          th:object="${itemform}" method="post">
+        <!--타임리프에서는 th안에 데이터를 집어넣는다. 경로를 쓸땐 @를 써야함. @쓰려면 th써야함...-->
+        <div class="form-group">
+            <label th:for="name">상 품 명</label>
+            <input type="text" th:field="*{name}"
+                   class="form-control" placeholder="이름을 입력하세요"
+            >
+            <!--라벨이랑 인풋이랑 이름으로 묶임 *안의 이름은 멤버폼 안에있는 멤버변수에 할당됨.-->
+            <!--네임이라는 필드에 에러가있다면 ? -->
+
+            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Incorrect data</p>
+
+        </div>
+
+        <div class="form-group">
+            <label th:for="price">가  격</label>
+            <input type="text" th:field="*{price}"
+                   class="form-control" placeholder="가격ㅇㄹ 입력하세요">
+        </div>
+
+        <div class="form-group">
+            <label th:for="stockQuantity">수  량</label>
+            <input type="text" th:field="*{stockQuantity}"
+                   class="form-control" placeholder="수량을 입력하세요">
+        </div>
+
+        <div class="form-group">
+            <label th:for="author">저  자</label>
+            <input type="text" th:field="*{author}"
+                   class="form-control" placeholder="저자를 입력하세요">
+        </div>
+
+        <div class="form-group">
+            <label th:for="isbn">isbn</label>
+            <input type="text" th:field="*{isbn}"
+                   class="form-control" placeholder="isbn을 입력하세요">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+    </form>
+
+    <div th:replace="fragments/footer"></div>
+</div>
+
+
+</body>
+</html>
